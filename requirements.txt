@@ -1,0 +1,10 @@
+setuptools
+numpy
+scipy
+ipython[all]
+jupyter
+pandas
+sympy
+nose
+enum
+wcwidth
