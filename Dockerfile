@@ -32,7 +32,8 @@ ENV SPARK_HOME /usr/local/spark-2.0.2-bin-hadoop2.7
 
 ENV PATH $PATH:${SPARK_HOME}/bin
 RUN curl -s ${SPARK_ARCHIVE} | tar -xz -C /usr/local/
-
+ENV PYTHONPATH=/usr/local/lib/python2.7/dist-packages:${SPARK_HOME}/python/pyspark:\
+${SPARK_HOME}/python/lib/py4j-0.10.3-src.zip:${SPARK_HOME}/python/lib/pyspark.zip
 ADD . /home/nate/docker/spark_2.0
 WORKDIR /home/nate/docker/spark_2.0
 RUN apt-get install -y python-pip
