@@ -8,3 +8,6 @@ sympy
 nose
 enum
 wcwidth
+fuzzywuzzy
+networkx
+scikit-learn

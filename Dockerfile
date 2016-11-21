@@ -24,7 +24,7 @@ ENV PATH $PATH:/usr/bin/python
 #ENV PATH $PATH:$JAVA_HOME/bin
 #RUN curl -s --insecure \
 #--header "Cookie: oraclelicense=accept-securebackup-cookie;" ${JAVA_ARCHIVE} \
-#| tar -xz -C /usr/local/ && ln -s $JAVA_HOME /usr/local/java 
+#| tar -xz -C /usr/local/ && ln -s $JAVA_HOME /usr/local/java
 
 # SPARK
 ARG SPARK_ARCHIVE=http://d3kbcqa49mib13.cloudfront.net/spark-2.0.2-bin-hadoop2.7.tgz
@@ -38,7 +38,7 @@ ADD . /home/nate/docker/spark_2.0
 WORKDIR /home/nate/docker/spark_2.0
 RUN apt-get install -y python-pip
 RUN pip install -r requirements.txt
-#RUN pip3 install --upgrade setuptools 
+#RUN pip3 install --upgrade setuptools
 #RUN pip3 install numpy scipy ipython[all] jupyter pandas \
 #    sympy nose enum wcwidth
 
