@@ -11,3 +11,5 @@ wcwidth
 fuzzywuzzy
 networkx
 scikit-learn
+sqlalchemy
+python-Levenshtein
