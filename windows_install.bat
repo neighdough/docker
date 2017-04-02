@@ -1,13 +1,13 @@
 cd c:\
-mkdir docker
-cd .\docker
+mkdir docker_setup
+cd .\docker_setup
 git clone https://github.com/neighdough/docker.git
-Invoke-WebRequest -Uri https://download.docker.com/win/stable/InstallDocker.msi -OutFile .\InstallDocker.msi
-msiexec /a InstallDocker.msi /quiet
-Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
+Powershell.exe Invoke-WebRequest -Uri https://download.docker.com/win/stable/InstallDocker.msi -OutFile .\InstallDocker.msi
+Start-Process msiexec.exe -Wait -ArgumentList '/i C:\docker_setup\docker\InstallDocker.msi ALLUSERS=2 ARPSYSTEMCOMPONENT=0 /L*V "C:\docker_setup\docker\fail.log" /quiet'
+Powershell.exe Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
+Powershell.exe Copy-Item ".\build_container.bat" -Destination "C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup"
 shutdown /r
-cd docker
-docker build -t neighdough/spark .
+
 
 
 
