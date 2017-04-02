@@ -2,6 +2,7 @@ FROM ubuntu:16.04
 
 RUN apt-get -y update
 RUN apt-get -y install curl
+RUN apt -y install vim
 
 # JAVA
 RUN apt-get update
@@ -13,8 +14,9 @@ RUN apt-get update -y
 RUN echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
 RUN echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
 RUN apt-get install -y oracle-java8-installer
+RUNn apt-get update -y
 RUN apt-get install -y build-essential manpages-dev python3-dev libblas-dev \
-    liblapack-dev libatlas-base-dev
+    liblapack-dev libatlas-base-dev vim
 
 # SPARK
 ARG SPARK_ARCHIVE=http://d3kbcqa49mib13.cloudfront.net/spark-2.0.2-bin-hadoop2.7.tgz
