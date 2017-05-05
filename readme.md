@@ -5,11 +5,15 @@ Docker on a Windows machine. The process for deploying and then running the
 container are as follows:
 
 1. Copy windows_install.bat to remote machine then execute
-    copy C:\docker\windows_install.bat \\<remote machine name>\c$\bin
-    psexec \\<remote machine name> c:\bin\windows_install.bat
+    net use x: \\computer-name\C$ /user:domain\username
+    copy-item C:\docker\windows_install.bat x:\windows_install.bat
+    psexec \\remote-machine c:\windows_install.bat
 2. Remote machine will restart, login then batch file to build container should
     start automatically
-3. Run docker container on remote machine
+3. Start spark master
+    /spark_home_directory/sbin/start-master.sh
+4. Run docker container on remote machine
+    docker run -P --net=host --add-host=moby:127.0.0.1 -it neighdough/spark ./sbin/start-slave.sh spark://<host-name>:7077
     docker run -P --net=host --add-host=moby:127.0.0.1 -it neighdough/spark /bin/bash
 4. 
 

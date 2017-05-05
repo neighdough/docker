@@ -1,7 +1,7 @@
 setuptools
 numpy
 scipy
-ipython[all]
+ipython[all]==2.4
 jupyter
 pandas
 sympy
