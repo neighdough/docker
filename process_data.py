@@ -12,10 +12,10 @@ from pyspark.sql.types import (StringType, DoubleType, LongType, DateType,
                                 StructField, StructType)
 from pyspark import SparkConf
 import sys
-os.chdir(r'/home/ubuntu/data')
-sys.path.append('.')
 from caeser import utils
 
+os.chdir(r'/home/ubuntu/data')
+sys.path.append('.')
 conf = SparkConf()
 exp = '[{}]?'.format(string.punctuation)
 idx_props = 0
@@ -33,12 +33,12 @@ def no_tax_list():
 #taxes = set(lst_tax)    
  
 def assessor_table(table):
-    '''
+    """
     builds nested dictionary containing records from assessor's table
     whose parcelid is contained in missing tax table
-    nested key values are derived from table header     
-    '''
-    assessor_dict = collections.defaultdict(list)            
+    nested key values are derived from table header
+    """
+    assessor_dict = collections.defaultdict(list)
     with open(table, 'rb') as f:
         reader = csv.reader(f)
         header = [i.lower() for i in reader.next() if i != 'PARID']
@@ -106,18 +106,18 @@ def match_score(s1, s2):
     token_ratio = fuzz.token_set_ratio(s1, s2)
     partial_ratio = fuzz.token_sort_ratio(s1,s2)
     avg = np.mean((ratio,token_ratio,partial_ratio))
-    return avg        
+    return avg
     
 def next_largest(list1):
     m = max(list1)
-    return max(n for n in list1 if n != m) 
-      
+    return max(n for n in list1 if n != m)
+
 def accuracy(min_distance):
     est_own = df_dup[df_dup.own_distance >= min_distance]
-    est_addr =  df_dup[(df_dup.adr_distance >= min_distance) & (df_dup.adr_distance < 100)]        
+    est_addr = df_dup[(df_dup.adr_distance >= min_distance) & (df_dup.adr_distance < 100)]
     own_count = float(len(est_own.groupby('OWN1_x').count()))
     addr_count = float(len(est_addr.groupby('OWN1_x').count()))
-    return (own_count,addr_count)
+    return (own_count, addr_count)
 
 def update(owner):
     owner = owner.union(row)
@@ -151,7 +151,12 @@ def alias():
     return sqlContext.createDataFrame(sc.emptyRDD(), StructType(fields))
 
 if __name__=='__main__':
-    conf.setMaster('spark://cpgis-0051.memphis.edu:7077')
+    """
+        host: db host name
+        master: master connection string (eg. spark://master_ip:7077)
+    """
+    host, master = sys.argv[1:]
+    conf.setMaster(master)
     host = sys.argv[1]
     params = utils.connection_properties(host, db='owner')
     url = 'postgresql://{host}:{port}/{db}'.format(**params)
