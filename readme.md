@@ -23,13 +23,14 @@ docker run -P --net=host --add-host=moby:127.0.0.1 -it neighdough/spark /bin/bas
 ```
 
 
+
 # Sample Commands
 
 ### Run container, mount drive, run interactive
 ```console
-docker run -v /home/nate/dropbox/Classes/FundDataScience_COMP8150/assignments/hw4:/data -it neighdough/spark /bin/bash
+docker run -v local/data/directory:/data -it neighdough/spark /bin/bash
 ```
-### In container, specify ipython as pyspark driver
+### In container, specify ipython as pyspark driver and then run PySpark
 ```console
 PYSPARK_DRIVER_PYTHON=ipython ./bin/pyspark
 ```
@@ -46,3 +47,7 @@ text = sc.textFile('/data/data/sample-text.txt').map(
 
 text.flatMap(lambda x: [[i, x[1]] for i in x[0]]).collect()
 ```
+# General Information
+
+To connect a PostgreSQL database, you'll need to download the JDBC driver (https://jdbc.postgresql.org/download.html)
+and then place it in the SPARK_HOME/jars/ directory
